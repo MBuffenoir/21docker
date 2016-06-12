@@ -4,9 +4,11 @@ info:
   ## TODO: Replace this IP address with your 21 address
   ##       You can get your IP address by running the following command
   ## python3 -c 'from two1.commands.util import zerotier; print(zerotier.get_address("21market"))'
-  x-21-quick-buy: '21 buy -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"image":"nginx:latest","ports":[80,443]}' http://10.244.112.81:5000/docker/run/'
+  x-21-quick-buy: '21 buy -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d ''{"image":"nginx:latest","ports":[80,443]}'' http://10.244.112.81:5000/docker/run/'
   x-21-category: utilities
-  x-21-app-image: "https://www.docker.com/sites/default/files/Engine.png"
+  x-21-app-image: "https://cdn.filepicker.io/api/file/DYuoMNqpS2OhlXZPfgsr"
+  x-21-github-project-url: "https://github.com/MBuffenoir/21docker"
+  x-21-usage: "This app will run a docker container hosted on the hub. For now the only supported option are exposed port. Environment variables, volumes will be implemented next. Please give me your feedback. The container will autodestruct after 10 minutes. In the future, payment channels could be used to keep container up."
   x-21-total-price:
     min: 5000
     max: 5000
