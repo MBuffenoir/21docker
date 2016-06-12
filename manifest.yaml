@@ -1,0 +1,24 @@
+info:
+  title: '21docker'
+  description: 'Run a 10 minutes docker container'
+  ## TODO: Replace this IP address with your 21 address
+  ##       You can get your IP address by running the following command
+  ## python3 -c 'from two1.commands.util import zerotier; print(zerotier.get_address("21market"))'
+  x-21-quick-buy: '21 buy url http://10.244.112.81:5000/docker/run/'
+  x-21-category: utilities
+  x-21-app-image: "https://cdn.filepicker.io/api/file/x6J1kiKyT9WhjmbqBrAb"
+  x-21-total-price:
+    min: 5000
+    max: 5000
+  contact:
+    ## TODO: Replace this information with your own
+    name: Mathieu Buffenoir
+    email: mathieu@buffenoir.tech
+## TODO: Replace this IP address with your 21 address
+##       You can get your IP address by running the following command
+## python3 -c 'from two1.commands.util import zerotier; print(zerotier.get_address("21market"))'
+host: 10.244.112.81:5000
+schemes:
+  - http
+basePath: /docker/run/
+x-21-manifest-path: /manifest

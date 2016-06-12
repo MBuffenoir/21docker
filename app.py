@@ -10,7 +10,7 @@ import yaml
 import json
 
 app = flask.Flask(__name__)
-# payment = Payment(app, Wallet())
+payment = Payment(app, Wallet())
 
 class InvalidUsage(Exception):
     status_code = 400
@@ -34,6 +34,7 @@ def handle_invalid_usage(error):
     return response
 
 @app.route('/docker/run/', methods=['GET', 'POST'])
+@payment.required(5000)
 def run():
     run_params = request.get_json(silent=False)
 
@@ -53,6 +54,13 @@ def run():
     else:
         raise InvalidUsage('You must specify at the very least an image name AND tag.', status_code=422)
 
+@app.route('/manifest')
+def manifest():
+    """Provide the app manifest to the 21 crawler.
+    """
+    with open('./manifest.yaml', 'r') as f:
+        manifest = yaml.load(f)
+    return json.dumps(manifest)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
