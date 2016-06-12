@@ -1,0 +1,6 @@
+two1
+redis
+netifaces
+websocket-client
+docker-py
+flask
