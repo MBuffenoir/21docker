@@ -6,7 +6,7 @@ import json, time
 import netifaces as ni
 import redis
 
-DEFAULT_EXPIRATION = 30
+DEFAULT_EXPIRATION = 360
 
 db = redis.Redis('localhost')
 
@@ -56,7 +56,8 @@ def ps():
     return c
 
 def stop(id):
-    print("I should stop the container with id %s" %id)
+    cli.stop(id)
+    print("Stopping container with id: %s" %id)
 
 def remove(id):
     pass

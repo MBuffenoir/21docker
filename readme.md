@@ -1,10 +1,10 @@
 # 21 Docker
 
-# Requirements
+## Requirements
 
 Have docker toolbox installed and cs configured to run command on exoscale API.
 
-# Create a docker machine to run the container on:
+## Create a docker machine tohost containers
 
     docker-machine create --driver exoscale \
         --exoscale-api-key $CLOUDSTACK_KEY \
@@ -57,7 +57,7 @@ Open a second terminal, connect to 21host and run the worker with:
 
 The worker will remove all expired containers
 
-# CURL
+## CURL
 
 curl -i \
     -H "Accept: application/json" \

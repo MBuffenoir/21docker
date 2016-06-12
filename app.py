@@ -4,8 +4,8 @@
 import flask
 from flask import request, jsonify
 from container import run as docker_run
-# from two1.wallet import Wallet
-# from two1.bitserv.flask import Payment
+from two1.wallet import Wallet
+from two1.bitserv.flask import Payment
 import yaml
 import json
 
