@@ -1,6 +1,6 @@
 info:
   title: '21docker'
-  description: 'Run a 10 minutes docker container'
+  description: 'Run a 10 minutes docker container. Example data: {"image":"nginx:latest","ports":[80,443]}'
   ## TODO: Replace this IP address with your 21 address
   ##       You can get your IP address by running the following command
   ## python3 -c 'from two1.commands.util import zerotier; print(zerotier.get_address("21market"))'

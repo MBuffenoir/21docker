@@ -57,13 +57,17 @@ Open a second terminal, connect to 21host and run the worker with:
 
 The worker will remove all expired containers
 
-## CURL
+## 21 buy
 
-curl -i \
-    -H "Accept: application/json" \
-    -H "Content-Type: application/json" \
-    -X POST \
-    -d '{"image":"nginx:latest","ports":[80,443]}' \
-    http://$(docker-machine ip 21host):5000/docker/run/
+Run an offchain payment to test with:
+
+    21 buy \
+        -H "Accept: application/json" \
+        -H "Content-Type: application/json" \
+        -X POST \
+        -d '{"image":"nginx:latest","ports":[80,443]}' \
+        http://$(docker-machine ip 21host):5000/docker/run/
+
+## TODO
 
 To define udp port use: ``"ports":[(53, 'udp'), 5000]} -> To be battle tested ...
