@@ -1,14 +1,20 @@
+# coding: utf-8
+#!/usr/bin/env python3
+
 from container import stop as docker_stop
 from container import ps as docker_ps
 
 from celery import Celery
 from datetime import timedelta
-celery = Celery('__name__')
 
 import time
 import redis
 
 db = redis.Redis('localhost')
+
+celery = Celery('__name__', broker='redis://localhost:6379/0')
+# BROKER_URL            = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
 CELERYBEAT_SCHEDULE = {
     'stop_expired_containers': {

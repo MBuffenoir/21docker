@@ -3,5 +3,5 @@ redis
 netifaces
 websocket-client
 docker-py
-celery
+celery[redis]
 flask
