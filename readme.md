@@ -38,6 +38,10 @@ Run the following commands:
     sudo easy_install-3.4 pip
     sudo pip install -r requirements.txt
 
+Setup 21 on the host
+
+    21 login
+
 # Client config
 
 input json
@@ -53,10 +57,6 @@ input json
     },
     "command":"/bin/sleep -t 30"
 }
-
-Will exposed default EXPOSE porst if needed on a random free port
-
-container_name defaulting to docker's daily feeling
 
 ## Return output json:
 

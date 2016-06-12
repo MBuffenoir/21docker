@@ -6,7 +6,7 @@ import json, time
 import netifaces as ni
 import redis
 
-DEFAULT_EXPIRATION = 360
+DEFAULT_EXPIRATION = 30
 
 db = redis.Redis('localhost')
 
@@ -51,16 +51,22 @@ def run(run_params):
     return {"public_ip":ip, "binded_ports":host_binded_ports, "container_id":container_id, \
     "timestamp":ts, "expiration_timestamp":expiration_ts}
 
+def ps():
+    c = cli.containers()
+    return c
+
 def stop(id):
-    pass
+    print("I should stop the container with id %s" %id)
 
 def remove(id):
     pass
 
 def inspect(id):
-    pass
+    return cli.inspect_container(id)
 
 
 # Run tests:
 # params = {"image":"nginx:latest","ports":[80,443]}
 # print(run(run_params=params))
+# for c in ps():
+#     print(c['Id'])
