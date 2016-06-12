@@ -73,6 +73,9 @@ To define udp port use: ``"ports":[(53, 'udp'), 5000]} -> To be battle tested ..
 ## TODO
 
 Repay to add some time to your container (payment channel ?)
+
 Add environments variable, volumes etc ...
+
 Support swarm
+
 Support load-balancing with Traeffik
