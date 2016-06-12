@@ -14,21 +14,29 @@ Have docker toolbox installed and cs configured to run command on exoscale API.
         --exoscale-security-group 21docker \
         21host
 
+    eval $(docker-machine env 21host)
 
 Start a redis server on our host with:
 
     docker run --name redis -p 127.0.0.1:6379:6379 -d redis redis-server --appendonly yes
 
-Ssh to the host:
+For monitoring purpose you use redis-cli with:
 
+    docker run -it --link redis:redis --rm redis redis-cli -h redis -p 6379
+
+Copy files and ssh to the host:
+    
+    docker-machine scp -r . 21host:
     docker-machine ssh 21host
 
 Run the following commands:
 
     sudo apt-get update
+    curl https://21.co | sh
     sudo apt-get -y install python-dev
-    sudo easy_install3 -U pip
-    pip install -r requirements.txt
+    sudo apt-get remove python-pip
+    sudo easy_install-3.4 pip
+    sudo pip install -r requirements.txt
 
 # Client config
 
@@ -50,12 +58,8 @@ Will exposed default EXPOSE porst if needed on a random free port
 
 container_name defaulting to docker's daily feeling
 
-output json:
+## Return output json:
 
-{
-    "timestamp":timestamp,
-    "id":"docker_container_id",
-}
 
 # CURL
 
@@ -64,6 +68,6 @@ curl -i \
     -H "Content-Type: application/json" \
     -X POST \
     -d '{"image":"nginx:latest","ports":[80,443]}' \
-    http://$(docker-machine ip blog):5000/docker/run/
+    http://$(docker-machine ip 21host):5000/docker/run/
 
-To define udp port use: ``"ports":[(53, 'udp'), 5000]}
+To define udp port use: ``"ports":[(53, 'udp'), 5000]} -> To be battle tested ...

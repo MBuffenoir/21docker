@@ -1,4 +1,5 @@
 # coding: utf-8
+#!/usr/bin/env python3
 
 from docker import Client
 import json, time
@@ -45,9 +46,10 @@ def run(run_params):
     inspection        = cli.inspect_container(container=container.get('Id'))
     host_binded_ports = {k:v[0]['HostPort'] for k,v in inspection['NetworkSettings']['Ports'].items()}
 
-    db.set(container, expiration_ts)
+    db.set(container_id, expiration_ts)
 
-    return {"public_ip":ip, "binded_ports":host_binded_ports, "container":container, "timestamp":ts}
+    return {"public_ip":ip, "binded_ports":host_binded_ports, "container_id":container_id, \
+    "timestamp":ts, "expiration_timestamp":expiration_ts}
 
 def stop(id):
     pass
