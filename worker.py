@@ -12,18 +12,18 @@ import redis
 
 db = redis.Redis('localhost')
 
-celery = Celery('__name__', broker='redis://localhost:6379/0')
-# BROKER_URL            = 'redis://localhost:6379/0'
-# CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-
-CELERYBEAT_SCHEDULE = {
+worker = Celery('page_saver')
+worker.conf.update(
+    BROKER_URL='redis://localhost',
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379',
+    CELERYBEAT_SCHEDULE = {
     'stop_expired_containers': {
         'task': 'tasks.stop_expired_containers',
         'schedule': timedelta(seconds=10)
     },
-}
+})
 
-@celery.task(name='tasks.stop_expired_containers')
+@worker.task(name='tasks.stop_expired_containers')
 def stop_expired_containers():
 
     # Get list of running containers id
@@ -38,6 +38,6 @@ def stop_expired_containers():
             # Stop it if expired
             docker_stop(i)
 
-@celery.task(name='tasks.remove_too_old_containers')
+@worker.task(name='tasks.remove_too_old_containers')
 def remove_too_old_containers():
     pass
