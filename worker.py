@@ -34,9 +34,10 @@ def stop_expired_containers():
     now = time.time()
     for i in containers_ids:
         expiration_ts = db.get(i)
-        if now > expiration_ts:
-            # Stop it if expired
-            docker_stop(i)
+        if expiration_ts is not None:
+            if now > float(expiration_ts):
+                # Stop it if expired
+                docker_stop(i)
 
 @worker.task(name='tasks.remove_too_old_containers')
 def remove_too_old_containers():

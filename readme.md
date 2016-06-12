@@ -29,6 +29,10 @@ Copy files and ssh to the host:
     docker-machine scp -r . 21host:
     docker-machine ssh 21host
 
+Add user to group ubuntu
+
+    sudo gpasswd -a ${USER} docker
+
 Run the following commands:
 
     sudo apt-get update
@@ -38,28 +42,20 @@ Run the following commands:
     sudo easy_install-3.4 pip
     sudo pip install -r requirements.txt
 
+
 Setup 21 on the host
 
     21 login
 
-# Client config
+Run the web server with:
 
-input json
+    python app.py
 
-{
-    "image":"url or hub name",
-    "ports":"1234",
-    {
-        "environment":[
-            "name":"value",
-            "name":"value"
-            ]
-    },
-    "command":"/bin/sleep -t 30"
-}
+Open a second terminal, connect to 21host and run the worker with:
 
-## Return output json:
+    celery -A worker worker -B --loglevel=INFO
 
+The worker will remove all expired containers
 
 # CURL
 
