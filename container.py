@@ -69,5 +69,3 @@ def inspect(id):
 # Run tests:
 # params = {"image":"nginx:latest","ports":[80,443]}
 # print(run(run_params=params))
-# for c in ps():
-#     print(c['Id'])
