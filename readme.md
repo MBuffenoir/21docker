@@ -72,6 +72,10 @@ To define udp port use: ``"ports":[(53, 'udp'), 5000]} -> To be battle tested ..
 
 ## TODO
 
+Dockerfile for project. 
+
+    docker run -v /var/run/docker.sock:/var/run/docker.sock
+
 Repay to add some time to your container (payment channel ?)
 
 Add environments variable, volumes etc ...
@@ -79,3 +83,5 @@ Add environments variable, volumes etc ...
 Support swarm
 
 Support load-balancing with Traeffik
+
+Time left endpoint
