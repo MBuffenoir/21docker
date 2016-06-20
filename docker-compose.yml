@@ -13,7 +13,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./manifest.yaml:/app/manifest.yaml
-      - ./.two1/:/root/.two1/
+      - $HOME/.two1/:/root/.two1/
     ports:
       - "5001:5000"
     depends_on:

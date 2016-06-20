@@ -3,6 +3,10 @@
 
 from docker import Client
 
+def ps():
+    c = cli.containers()
+    return c
+
 def stop(id):
     cli.stop(id)
     print("Stopping container with id: %s" %id)
