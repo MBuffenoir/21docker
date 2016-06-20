@@ -35,28 +35,19 @@ Add current user to group ubuntu
 
     sudo gpasswd -a ${USER} docker
 
-<!-- Run the following commands:
+Install 21 on the host to facilitate account management:
 
-    sudo apt-get update
     curl https://21.co | sh
-    sudo apt-get -y install python-dev
-    sudo apt-get remove python-pip
-    sudo easy_install-3.4 pip
-    sudo pip install -r requirements.txt -->
 
-Setup 21 on the host
+Setup 21 on the host (In particular this will connect your host to the 21 private network and create proper configuration file in a .two1 folder. We can then mount this folder in our app using docker.):
 
     21 login
 
 Build, then run the web server with:
 
     docker-compose up -d
-<!-- 
-Open a second terminal, connect to 21host and run the worker with:
 
-    celery -A worker worker -B --loglevel=INFO -->
-
-The worker will remove all expired containers after 10 minutes.
+The worker container will remove all expired containers after 10 minutes.
 
 ## 21 buy
 

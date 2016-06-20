@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  redis:
+    restart: always
+    image: redis
+
+  21docker:
+    restart: always
+    build: ./dockerfiles/21docker/
+    environment:
+      - REDIS=redis
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./manifest.yaml:/app/manifest.yaml
+      - ./.two1/:/root/.two1/
+    ports:
+      - "5001:5000"
+    depends_on:
+      - redis
+
+  21worker:
+    restart: always
+    build: ./dockerfiles/21docker-worker/
+    environment:
+      - REDIS=redis    
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - redis
+      - 21docker
