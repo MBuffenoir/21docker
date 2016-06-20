@@ -28,10 +28,6 @@ Make sure compose is installed on your host:
 
     curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
-<!-- Start a redis server on your host with:
-
-    docker run --name redis -p 127.0.0.1:6379:6379 -d redis redis-server --appendonly yes -->
-
 Add current user to group ubuntu
 
     sudo gpasswd -a ${USER} docker
@@ -43,6 +39,8 @@ Install 21 on the host to facilitate account management:
 Setup 21 on the host (In particular this will connect your host to the 21 private network and create proper configuration file in a .two1 folder. We can then mount this folder in our app using docker.):
 
     21 login
+
+Be sure to update your manifest file your 21co ip address
 
 Build, then run the web server with:
 
@@ -65,15 +63,7 @@ To define udp port use: ``"ports":[(53, 'udp'), 5000]} -> To be battle tested ..
 
 ## TODO
 
-Dockerfile for project. 
-
-    docker run -v /var/run/docker.sock:/var/run/docker.sock
-
-Be sure to update your manifest file your 21co ip address
-
 Repay to add some time to your container (payment channel ?)
-
-Add environments variable, volumes etc ...
 
 Support swarm
 

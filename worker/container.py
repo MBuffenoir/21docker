@@ -3,6 +3,8 @@
 
 from docker import Client
 
+cli = Client(base_url='unix://var/run/docker.sock')
+
 def ps():
     c = cli.containers()
     return c
