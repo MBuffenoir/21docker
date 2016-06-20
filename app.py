@@ -46,10 +46,9 @@ def run():
             raise InvalidUsage('You must specify an image name AND tag.', status_code=422)
         try:
             container = docker_run(run_params)
-            print(container)
             return jsonify(container)
         except(Exception) as error:
-            print(str(error))
+            # print(str(error))
             raise InvalidUsage(str(error), status_code=500)
     else:
         raise InvalidUsage('You must specify at the very least an image name AND tag.', status_code=422)

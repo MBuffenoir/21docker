@@ -9,13 +9,21 @@ from datetime import timedelta
 
 import time
 import redis
+import os
 
-db = redis.Redis('localhost')
+# If a redis server is defined in environment then we use it, otherwise assumed local
+try:  
+   REDIS = os.environ["REDIS"]
+except KeyError: 
+   print("No REDIS environment variable set, defaulting to localhost:6379")
+   REDIS ='localhost:6379'
+
+db = redis.Redis(REDIS)
 
 worker = Celery('page_saver')
 worker.conf.update(
-    BROKER_URL='redis://localhost',
-    CELERY_RESULT_BACKEND = 'redis://localhost:6379',
+    BROKER_URL='redis://%s' %REDIS,
+    CELERY_RESULT_BACKEND = 'redis://%s' %REDIS,
     CELERYBEAT_SCHEDULE = {
     'stop_expired_containers': {
         'task': 'tasks.stop_expired_containers',

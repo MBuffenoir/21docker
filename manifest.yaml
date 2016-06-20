@@ -1,15 +1,15 @@
 info:
-  title: '21docker'
+  title: '21docker-test'
   description: 'Run a docker container for 10 minutes.'
   ## TODO: Replace this IP address with your 21 address
   ##       You can get your IP address by running the following command
   ## python3 -c 'from two1.commands.util import zerotier; print(zerotier.get_address("21market"))'
-  x-21-quick-buy: "21 buy -d \"{'image':'nginx:latest','ports':[80,443]}\" http://10.244.112.81:5000/docker/run/ \n\n# Output: \n# { \n#   \"binded_ports\": { \n#       \"443/tcp\": \"32780\", \n#       \"80/tcp\": \"32781\" \n#   }, \n#   \"container_id\": \"320b31cab725414da744067a10d9b44c8b3cc899c4505e5d82b24d7808fc8510\", \n#   \"expiration_timestamp\": 1465803456.7431562, \n#   \"public_ip\": \"185.19.29.13\", \n#   \"timestamp\": 1465803096.7431562 \n# } \n  "
+  x-21-quick-buy: "21 buy -d \"{'image':'nginx:latest','ports':[80,443]}\" http://10.244.112.81:5001/docker/run/ \n\n# Output: \n# { \n#   \"binded_ports\": { \n#       \"443/tcp\": \"32780\", \n#       \"80/tcp\": \"32781\" \n#   }, \n#   \"container_id\": \"320b31cab725414da744067a10d9b44c8b3cc899c4505e5d82b24d7808fc8510\", \n#   \"expiration_timestamp\": 1465803456.7431562, \n#   \"public_ip\": \"185.19.29.13\", \n#   \"timestamp\": 1465803096.7431562 \n# } \n  "
   x-21-app-image: "https://cdn.filepicker.io/api/file/DYuoMNqpS2OhlXZPfgsr"
   x-21-github-project-url: "https://github.com/MBuffenoir/21docker"
   x-21-keywords: [docker, container, cloud, microservice]
   x-21-category: utilities
-  x-21-usage: "This app will run a docker container hosted on the hub. For now the only supported option are exposed port. Environment variables, volumes will be implemented next. Please give me your feedback. The container will autodestruct after 10 minutes. In the future, payment channels could be used to keep container up."
+  x-21-usage: "This app will run a docker container hosted on the hub. For now the only supported option are exposed port. Please give me your feedback about what features you would be interested in. The container will autodestruct after 10 minutes. In the future, payment channels could be used to keep container up."
   x-21-total-price:
     min: 5000
     max: 5000

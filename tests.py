@@ -24,3 +24,7 @@ class AppTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+# but I would point you to magicmock https://docs.python.org/3/library/unittest.mock.html in particular the usage `thing.method = MagicMock(return_value=True)`
+# So you can, e.g., patch the unit tests that call paid methods with a MagicMock around `is_valid_payment`
+

@@ -16,44 +16,45 @@ Have docker toolbox installed and cs configured to call Exoscale API.
 
     eval $(docker-machine env 21host)
 
-Start a redis server on your host with:
-
-    docker run --name redis -p 127.0.0.1:6379:6379 -d redis redis-server --appendonly yes
-
-For monitoring purpose you use redis-cli with:
-
-    docker run -it --link redis:redis --rm redis redis-cli -h redis -p 6379
+# Run the application using docker and compose
 
 Copy files and ssh to the host:
     
     docker-machine scp -r . 21host:
     docker-machine ssh 21host
 
-Add user to group ubuntu
+Make sure compose is installed on your host:
+
+    curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+<!-- Start a redis server on your host with:
+
+    docker run --name redis -p 127.0.0.1:6379:6379 -d redis redis-server --appendonly yes -->
+
+Add current user to group ubuntu
 
     sudo gpasswd -a ${USER} docker
 
-Run the following commands:
+<!-- Run the following commands:
 
     sudo apt-get update
     curl https://21.co | sh
     sudo apt-get -y install python-dev
     sudo apt-get remove python-pip
     sudo easy_install-3.4 pip
-    sudo pip install -r requirements.txt
-
+    sudo pip install -r requirements.txt -->
 
 Setup 21 on the host
 
     21 login
 
-Run the web server with:
+Build, then run the web server with:
 
-    python3 app.py
-
+    docker-compose up -d
+<!-- 
 Open a second terminal, connect to 21host and run the worker with:
 
-    celery -A worker worker -B --loglevel=INFO
+    celery -A worker worker -B --loglevel=INFO -->
 
 The worker will remove all expired containers after 10 minutes.
 
@@ -75,6 +76,8 @@ To define udp port use: ``"ports":[(53, 'udp'), 5000]} -> To be battle tested ..
 Dockerfile for project. 
 
     docker run -v /var/run/docker.sock:/var/run/docker.sock
+
+Be sure to update your manifest file your 21co ip address
 
 Repay to add some time to your container (payment channel ?)
 

@@ -5,13 +5,33 @@ from docker import Client
 import json, time
 import netifaces as ni
 import redis
+import os
 
-DEFAULT_EXPIRATION = 360
+# Configuration
 
-db = redis.Redis('localhost')
+try:
+    DEFAULT_EXPIRATION = os.environ["DEFAULT_EXPIRATION"]
+except KeyError:
+    print("No DEFAULT_EXPIRATION environment variable set, defaulting to 360 seconds")
+    DEFAULT_EXPIRATION = 360
+
+# If a redis server is defined in environment then we use it, otherwise assumed local
+try:
+    REDIS = os.environ["REDIS"]
+except KeyError:
+    print("No REDIS environment variable set, defaulting to localhost:6379")
+    REDIS = "localhost:6379"
+
+# worker
+
+db = redis.Redis(REDIS)
 
 def get_ip_address(ifname):
-    return ni.ifaddresses(ifname)[2][0]['addr']
+    try:  
+        return os.environ["IP"]
+    except KeyError: 
+        print("No IP environment variable set, defaulting to eth0")
+        return ni.ifaddresses(ifname)[2][0]['addr']
 
 cli = Client(base_url='unix://var/run/docker.sock')
 
@@ -41,15 +61,18 @@ def run(run_params):
 
     container_id      = container['Id']
     ts                = time.time()
-    expiration_ts     = ts + DEFAULT_EXPIRATION
+    expiration_ts     = ts + float(DEFAULT_EXPIRATION)
     ip                = get_ip_address('eth0')
     inspection        = cli.inspect_container(container=container.get('Id'))
     host_binded_ports = {k:v[0]['HostPort'] for k,v in inspection['NetworkSettings']['Ports'].items()}
 
     db.set(container_id, expiration_ts)
 
-    return {"public_ip":ip, "binded_ports":host_binded_ports, "container_id":container_id, \
+    res = {"public_ip":ip, "binded_ports":host_binded_ports, "container_id":container_id, \
     "timestamp":ts, "expiration_timestamp":expiration_ts}
+    print("Just launched the following container:")
+    print(res)
+    return res
 
 def ps():
     c = cli.containers()
@@ -60,6 +83,9 @@ def stop(id):
     print("Stopping container with id: %s" %id)
 
 def remove(id):
+    pass
+
+def logs(id, lines=10):
     pass
 
 def inspect(id):
