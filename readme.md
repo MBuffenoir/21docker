@@ -2,7 +2,8 @@
 
 ## Requirements
 
-Have docker toolbox installed and cs configured to call Exoscale API.
+Have docker toolbox installed and cs configured if you want to use Exoscale compute API to create your hosting instance.
+You can of course use any other provider that docker-machine supports to host the project.
 
 ## Create a docker machine to host containers
 

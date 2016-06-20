@@ -7,7 +7,7 @@ services:
 
   21docker:
     restart: always
-    build: ./dockerfiles/21docker/
+    build: ./app/
     environment:
       - REDIS=redis
     volumes:
@@ -21,7 +21,7 @@ services:
 
   21worker:
     restart: always
-    build: ./dockerfiles/21docker-worker/
+    build: ./worker/
     environment:
       - REDIS=redis    
     volumes:
