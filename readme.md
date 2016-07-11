@@ -26,7 +26,9 @@ Copy files and ssh to the host:
 
 Make sure compose is installed on your host:
 
+    sudo su
     curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+    chmod +x usr/local/bin/docker-compose
 
 Add current user to group ubuntu
 
@@ -40,13 +42,19 @@ Setup 21 on the host (In particular this will connect your host to the 21 privat
 
     21 login
 
-Be sure to update your manifest file your 21co ip address
+Be sure to update your manifest file with your 21co ip address.
 
 Build, then run the web server with:
 
     docker-compose up -d
 
 The worker container will remove all expired containers after 10 minutes.
+
+## Tests
+
+Run the tests with:
+
+    docker-compose exec 21docker python -m unittest discover
 
 ## 21 buy
 
@@ -70,3 +78,12 @@ Support swarm
 Support load-balancing with Traeffik
 
 Time left endpoint
+
+A a logging / reporting / admin panel
+
+Have a collecton of interesting containers to run:
+- tor
+- http proxy
+    - in different countries (to stream video for example)
+- zeronet client
+- temporary bitcoin node (with a preloaded blockchain if it is doable in a costly manner)
