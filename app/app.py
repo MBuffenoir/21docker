@@ -1,5 +1,5 @@
-# coding: utf-8
 #!/usr/bin/env python3
+# coding: utf-8
 
 import flask
 from flask import request, jsonify
@@ -8,9 +8,12 @@ from two1.wallet import Wallet
 from two1.bitserv.flask import Payment
 import yaml
 import json
+import os
 
 app = flask.Flask(__name__)
 payment = Payment(app, Wallet())
+
+app.config['DEBUG'] = os.getenv('DEBUG', False)
 
 class InvalidUsage(Exception):
     status_code = 400

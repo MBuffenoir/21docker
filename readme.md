@@ -24,6 +24,8 @@ Copy files and ssh to the host:
     docker-machine scp -r . 21host:
     docker-machine ssh 21host
 
+You can also use rsync as described [here](http://buffenoir.tech/keep-project-synced-with-machine.html#keep-project-synced-with-machine)
+
 Make sure compose is installed on your host:
 
     sudo su
@@ -71,6 +73,8 @@ To define udp port use: ``"ports":[(53, 'udp'), 5000]} -> To be battle tested ..
 
 ## TODO
 
+publish multiple endpoint in SPEC tab
+
 Repay to add some time to your container (payment channel ?)
 
 Support swarm
@@ -79,7 +83,7 @@ Support load-balancing with Traeffik
 
 Time left endpoint
 
-A a logging / reporting / admin panel
+A logging / reporting / admin panel
 
 Have a collecton of interesting containers to run:
 - tor

@@ -1,51 +1,41 @@
-# coding: utf-8
 #!/usr/bin/env python3
+# coding: utf-8
 
 from docker import Client
-import json, time
+import json, time, os, sys
 import netifaces as ni
 import redis
-import os
 
-# Configuration
-
-try:
-    DEFAULT_EXPIRATION = os.environ["DEFAULT_EXPIRATION"]
-except KeyError:
-    print("No DEFAULT_EXPIRATION environment variable set, defaulting to 360 seconds")
-    DEFAULT_EXPIRATION = 360
-
+# default container lifetime = 360 seconds !
+DEFAULT_EXPIRATION = os.getenv('DEFAULT_EXPIRATION', 360)
 # If a redis server is defined in environment then we use it, otherwise assumed local
-try:
-    REDIS = os.environ["REDIS"]
-except KeyError:
-    print("No REDIS environment variable set, defaulting to localhost:6379")
-    REDIS = "localhost:6379"
-
-# worker
+REDIS = os.getenv('REDIS', "localhost:6379")
 
 db = redis.Redis(REDIS)
 
 def get_ip_address(ifname):
-    try:  
-        return os.environ["IP"]
-    except KeyError: 
-        print("No IP environment variable set, defaulting to eth0")
-        return ni.ifaddresses(ifname)[2][0]['addr']
+    zerotier_ip = os.getenv('IP', ni.ifaddresses(ifname)[2][0]['addr'])
+    print("Advertised ip address: %s" % zerotier_ip, file=sys.stderr)
+    # try:  
+    #     return os.environ["IP"]
+    # except KeyError: 
+    #     print("No IP environment variable set, defaulting to eth0")
+    #     return ni.ifaddresses(ifname)[2][0]['addr']
+    return zerotier_ip
 
 cli = Client(base_url='unix://var/run/docker.sock')
 
 def run(run_params):
     # first make sure the image has been pulled locally:
     try:
+        print("Pulling image if necessary")
         res = cli.pull(run_params['image'])
-        print(res)
+        print(res, file=sys.stderr)
     except(Exception) as error:
         raise error
 
     # Turn the port list into a dict
     binded_ports = {k:None for i, k in enumerate(run_params['ports'])}
-    print(binded_ports)
     # Create container and bind to random host ports 
     try:
         container = cli.create_container(image=run_params['image'], ports=run_params['ports'], detach=True,
@@ -70,8 +60,8 @@ def run(run_params):
 
     res = {"public_ip":ip, "binded_ports":host_binded_ports, "container_id":container_id, \
     "timestamp":ts, "expiration_timestamp":expiration_ts}
-    print("Just launched the following container:")
-    print(res)
+    print("This container was just launched to sea, a little bit of data to monitor it in the waves:")
+    print(res, file=sys.stderr)
     return res
 
 def ps():
@@ -80,7 +70,7 @@ def ps():
 
 def stop(id):
     cli.stop(id)
-    print("Stopping container with id: %s" %id)
+    print("Stopping container with id: %s" %id, file=sys.stderr)
 
 def remove(id):
     pass

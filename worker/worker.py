@@ -1,5 +1,5 @@
-# coding: utf-8
 #!/usr/bin/env python3
+# coding: utf-8
 
 from container import stop as docker_stop
 from container import ps as docker_ps
@@ -12,11 +12,7 @@ import redis
 import os
 
 # If a redis server is defined in environment then we use it, otherwise assumed local
-try:  
-   REDIS = os.environ["REDIS"]
-except KeyError: 
-   print("No REDIS environment variable set, defaulting to localhost:6379")
-   REDIS ='localhost:6379'
+REDIS = os.getenv('REDIS', "localhost:6379")
 
 db = redis.Redis(REDIS)
 
@@ -33,6 +29,8 @@ worker.conf.update(
 
 @worker.task(name='tasks.stop_expired_containers')
 def stop_expired_containers():
+
+    # We could also use redis EXPIRE http://redis.io/commands/expire
 
     # Get list of running containers id
     containers_ids = []
