@@ -2,10 +2,8 @@
 # coding: utf-8
 
 import app
-# import json
-from unittest import TestCase, mock
 
-mock.patch('payment.required', lambda x: x)
+from unittest import TestCase, mock
 
 # http://stackoverflow.com/questions/7667567/can-i-patch-a-python-decorator-before-it-wraps-a-function
 
@@ -32,9 +30,10 @@ class AppTestCase(TestCase):
         self.assertEqual(rv.data, b'Payment Required')
         assert b'Payment Required' in rv.data
 
-    def test_02_post_json_without_image_key_should_422(self):
+    def test_02_post_json_with_mocked_payment_and_without_image_key_should_422(self):
         headers = [('Content-Type', 'application/json')]
         data = '{"no_image_in_there"}'
+        mock.patch('app.Payment.required.decorator', lambda x: x)
         rv = self.app.post( '/docker/run', headers=headers, data=data, follow_redirects=True)
         self.assertEqual(rv.status_code, 422)
 
