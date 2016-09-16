@@ -24,7 +24,7 @@ Copy files and ssh to the host:
     docker-machine scp -r . 21host:
     docker-machine ssh 21host
 
-You can also use rsync as described [here](http://buffenoir.tech/keep-project-synced-with-machine.html#keep-project-synced-with-machine)
+You can also use rsync as described [here](http://buffenoir.tech/keep-project-synced-with-machine.html#keep-project-synced-with-machine).
 
 Make sure compose is installed on your host:
 
@@ -91,3 +91,5 @@ Have a collecton of interesting containers to run:
     - in different countries (to stream video for example)
 - zeronet client
 - temporary bitcoin node (with a preloaded blockchain if it is doable in a costly manner)
+
+Create an alias 21docker.buffenoir.tech / use letsencrypt and HTTPS
